@@ -28,18 +28,27 @@ const deleteFromCard = (id) => {
   }
 }
 
-const sendOrderToDb = (body) => {
-  return async dispatch => {
+const successSend = (result) => {
+  return {
+    type: 'SUCCESS_SEND',
+    payload: result
+  }
+}
+
+const sendOrderToDb = () => {
+  return async (dispatch, getState) => {
+    const items = getState().items
     const result = await fetch('http://localhost:3000/order', {
       method: 'POST',
       headers: {
         'Content-type': 'application/json'
       },
-      body: body
+      body: JSON.stringify(items)
     })
 
-    return await result.json()
-    
+    const response = await result.json()
+
+    dispatch(successSend(response))
   }
 
 }
@@ -48,5 +57,6 @@ export {
   menuLoaded,
   menuRequested,
   addedToCard,
-  deleteFromCard
+  deleteFromCard,
+  sendOrderToDb
 }

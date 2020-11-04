@@ -71,6 +71,14 @@ const reducer = (state = initialState, action) => {
           ...state.items.slice(itemIndex + 1)
         ]
       }
+
+    case 'SUCCESS_SEND':
+      console.log(action.payload);
+      return {
+        ...state,
+        items: [],
+        allCartPrice: 0
+      }
     default: 
       return state
   }

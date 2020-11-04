@@ -10,16 +10,4 @@ export default class RestoService {
     const data = await result.json()
     return data
   }
-
-  sendOrderToDb = async (body) => {
-    const result = await fetch('http://localhost:3000/order', {
-      method: 'POST',
-      headers: {
-        'Content-type': 'application/json'
-      },
-      body: body
-    })
-
-    return await result.json()
-  }
 }

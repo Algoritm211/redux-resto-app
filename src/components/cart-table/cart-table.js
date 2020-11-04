@@ -1,9 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { deleteFromCard } from '../../actions';
+import { deleteFromCard, sendOrderToDb } from '../../actions';
 import './cart-table.scss';
 
-const CartTable = ({items, onDelete}) => {
+const CartTable = ({items, onDelete, sendOrderToDb}) => {
     return (
         <>
             <div className="cart__title">Ваш заказ:</div>
@@ -22,7 +22,13 @@ const CartTable = ({items, onDelete}) => {
                 )
               })}
 
-              <button onClick={() => {}} className="menu__btn">Отослать заказ</button>
+              {
+                items.length
+                  ? <button onClick={() => sendOrderToDb()} className="menu__btn">Отослать заказ</button>
+                  : null
+              }
+
+              
             </div>
         </>
     );
@@ -36,7 +42,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    onDelete: (id) => dispatch(deleteFromCard(id))
+    onDelete: (id) => dispatch(deleteFromCard(id)),
+    sendOrderToDb: () => dispatch(sendOrderToDb())
   }
 }
 
